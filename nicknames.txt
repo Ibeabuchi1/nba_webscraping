@@ -1,0 +1,44 @@
+0	- 1
+ATL	- Atlanta Hawks
+BOS	- Boston Celtics
+CHA	- Charlotte Hornets
+CHI	- Chicago Bulls
+CLE	- Cleveland Cavaliers
+DAL	- Dallas Mavericks
+DEN	- Denver Nuggets
+DET	- Detroit Pistons
+GSW	- Golden State Warriors
+HOU -	Houston Rockets
+IND	- Indiana Pacers
+LAC -	Los Angeles Clippers
+LAL	- Los Angeles Lakers
+MEM	- Memphis Grizzlies
+MIA	- Miami Heat
+MIL	- Milwaukee Bucks
+MIN	- Minnesota Timberwolves
+NOH	- New Orleans Hurricanes
+NYK	- New York Knicks
+BKN	- Brooklyn Nets
+OKC	- Oklahoma City Thunder
+ORL	- Orlando Magic
+PHI	- Philadelphia 76ers
+PHO	- Phoenix Suns
+POR	- Portland Trail Blazers
+SAC	- Sacramento Kings
+TOR	- Toronto Raptors
+UTH	- Utah Jazz
+WAS	- Washington Wizards
+WSB: 'Washington Bullets Roster
+HOU:'Houston Rockets
+CHO: Charlotte Hornets
+UTA:Utah Jazz
+VAN: 'Vancouver Grizzlies
+SEA:'Seattle Storm
+NJN: New Jersey Nets
+NO:'New Orleans City
+LA: Los Angeles Clippers
+NOP: New Orleans Pelicans
+NOK: New Oklahoma City
+BRK: Brooklyn nets
+SAS:'San Antonio Spurs
+CHH:Charlotte Hornets
