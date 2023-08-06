@@ -16,10 +16,10 @@ def read_mvp_csv(mvps):
         
     return mvps
 
-# mvp = read_nba_data(mvps)
+mvp = read_mvp_csv(mvps)
 # print(mvp)
 
-players = pd.read_csv('csvs/players.csv')
+players_df = pd.read_csv('csvs/players.csv')
 
 
 def read_player_csv(players):
@@ -37,17 +37,47 @@ def read_player_csv(players):
     
     return players
 
-# def single_row(df):
-#     if df.shape[0] == 1:
-#         return df
-#     else:
-#         row = df[df['tm'] == 'tot']
-#         row['tm'] = df.iloc[-1, :]['tm']
+def single_row(df):
+    if df.shape[0] == 1:
+        return df
+    else:
+        row = df[df['tm'] == 'tot']
+        row['tm'] = df.iloc[-1, :]['tm']
 
-#     return row
+    return row
     
+players = read_player_csv(players_df)
+players = players.groupby(['player', 'year']).apply(single_row)
 
-# players = players.groupby(['player', 'year']).apply(single_row)
+players.index = players.index.droplevel()
+players.index = players.index.droplevel()
 
-mvp = read_player_csv(players)
-print(mvp)
+
+mvp_players = players.merge(mvp, how='outer', on=['player', 'year'])
+mvp_players[['pts_won', 'pts_max', 'share']] = mvp_players[['pts_won', 'pts_max', 'share']].fillna(0)
+
+
+# TEAMS
+teams_df = pd.read_csv('csvs/teams.csv')
+
+def read_team_csv(teams):
+    teams.columns = teams.columns.str.lower().str.replace(' ', '')
+    teams.team = [i for i in teams['team'].str.lower()]    
+    del teams['unnamed:0']
+    teams = teams[~teams['w'].str.contains('Division')]
+    teams['team'] = teams['team'].str.replace('*', '', regex=False)
+    return teams
+
+nicknames = {}
+
+with open("nicknames.txt", 'r') as f_in:
+    lines = f_in.readlines()
+    for line in lines[1:]:
+        abbrev, name = line.replace('\n', '').replace('-', '').replace("'", '"').replace('\t', ':').split(':')
+        nicknames[abbrev] = name
+        for key, val in nicknames.items():
+            names = key.strip()
+            nicknames[names] = val.strip().replace('"', '').lower()
+
+# teams = read_team_csv(teams_df)
+print(nicknames)
