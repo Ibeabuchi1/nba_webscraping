@@ -75,9 +75,16 @@ with open("nicknames.txt", 'r') as f_in:
     for line in lines[1:]:
         abbrev, name = line.replace('\n', '').replace('-', '').replace("'", '"').replace('\t', ':').split(':')
         nicknames[abbrev] = name
-        for key, val in nicknames.items():
-            names = key.strip()
-            nicknames[names] = val.strip().replace('"', '').lower()
+        for key, val in nicknames.copy().items():
+            if val.upper():
+                del nicknames[key]
+                key = key.strip().lower()
+                val = val.strip().replace('"', '').lower()
+                nicknames[key] = val
 
-# teams = read_team_csv(teams_df)
-print(nicknames)
+
+
+teams = read_team_csv(teams_df)
+stat = mvp_players.merge(teams, how='outer', on=['team', 'year'])
+
+print(teams)
