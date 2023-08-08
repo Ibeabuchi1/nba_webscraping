@@ -1,25 +1,19 @@
 import pandas as pd
 
 mvps = pd.read_csv('csvs/mvps.csv')
+players_df = pd.read_csv('csvs/players.csv')
+teams_df = pd.read_csv('csvs/teams.csv')
 
 
 def read_mvp_csv(mvps):
-
-
     mvps = pd.read_csv('csvs/mvps.csv')
-    
     mvps.columns = mvps.columns.str.replace(' ', '_').str.lower()
-
     mvps = mvps[["player", "year", "pts_won", "pts_max", "share"]]
-    
-    mvps['player'] = [i.lower() for i in mvps.player ]
-        
+    mvps['player'] = [i.lower() for i in mvps.player ] 
     return mvps
 
 mvp = read_mvp_csv(mvps)
 # print(mvp)
-
-players_df = pd.read_csv('csvs/players.csv')
 
 
 def read_player_csv(players):
@@ -54,7 +48,6 @@ mvp_players[['pts_won', 'pts_max', 'share']] = mvp_players[['pts_won', 'pts_max'
 
 
 # TEAMS
-teams_df = pd.read_csv('csvs/teams.csv')
 
 def read_team_csv(teams):
     teams = teams.copy()
@@ -64,7 +57,6 @@ def read_team_csv(teams):
     del teams['unnamed:0']
     teams = teams[~teams['w'].str.contains('Division')]
     teams.team = teams['team'].str.replace('*', '', regex=False)
-    
     return teams
 
 nicknames = {}
@@ -80,12 +72,14 @@ with open("nicknames.txt", 'r') as f_in:
                 key = key.strip().lower()
                 val = val.strip().replace('"', '').lower()
                 nicknames[key] = val
+
 mvp_players['team'] = mvp_players['tm'].map(nicknames)
 mvp_players[['pts_won', 'pts_max', 'share']] = mvp_players[['pts_won', 'pts_max', 'share']].fillna(0)
 
 
 teams = read_team_csv(teams_df)
 stat = mvp_players.merge(teams, how='outer', on=['team', 'year'])
-stat = stat.dropna()
+# stat = stat.dropna()
 
 stat.to_csv('csvs/player_stats.csv')
+# 
