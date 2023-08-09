@@ -70,3 +70,6 @@ def backtest(df, model, year, predictors):
         aps.append(find_ap(new_df))
         
     return sum(aps)/len(aps)
+
+aps = backtest(df, rdg, years[5:], predictors)
+print(aps)
